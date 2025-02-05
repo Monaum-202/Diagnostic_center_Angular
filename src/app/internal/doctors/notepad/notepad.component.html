@@ -1,0 +1,18 @@
+<header>
+    Simple Notepad
+  </header>
+
+  <div class="notepad-container">
+    <textarea id="notepad" placeholder="Type your notes here..."></textarea>
+    <div class="buttons">
+      <button class="save" onclick="saveNote()" (change)="addDiagnosis($event)">Save</button>
+      <button class="clear" onclick="clearNote()">Clear</button>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="Diagnosis" class="form-label">Note</label>
+  <ol>
+    <li *ngFor="let v of diagnosisList; let index = index" >{{v}} </li>
+  </ol>
+  </div>
