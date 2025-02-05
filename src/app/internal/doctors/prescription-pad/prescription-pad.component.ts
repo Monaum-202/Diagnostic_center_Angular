@@ -16,11 +16,11 @@ export class PrescriptionPadComponent implements OnInit {
   ) { }
 
   prescriptionForm!: FormGroup;
+
   medicinesArray!: FormArray;
   allMedicines: any[] = []; // Store all medicines from API
   filteredMedicines: any[][] = []
-
-  investigationForm!: FormGroup;
+  
   investigationsArray!: FormArray;
   allInvestigations: any[] = []; // Store all investigations from API
   filteredInvestigations: any[][] = []; // Store filtered investigations for each row
@@ -43,14 +43,29 @@ export class PrescriptionPadComponent implements OnInit {
         this.allInvestigations = data;
       });
   
-      this.Addnewrow();
+      // this.Addnewrow();
      }
 
      filterMedicines(index: number) {
       const input = this.medicines.at(index).get('medicine')?.value.toLowerCase();
-      this.filteredMedicines[index] = this.allMedicines.filter(med =>
-        med.medicineName.toLowerCase().includes(input)
-      );
+      console.log('Input:', input);
+      
+
+      // //-------------
+      // this.filteredMedicines[index] = this.allMedicines.filter(med =>
+      //   med.medicineName.toLowerCase().includes(input)
+      // );
+
+//-------------------
+if (!input) {
+  this.filteredMedicines[index] =  this.filteredMedicines[index] = this.allMedicines.filter(med =>
+    med.medicineName.toLowerCase().includes(input)
+  );
+  return;
+}
+this.filteredMedicines[index] = this.allMedicines;
+
+
     }
 
     filterInvestigations(index: number) {
@@ -144,9 +159,9 @@ export class PrescriptionPadComponent implements OnInit {
       this.items.removeAt(index)
     }
 
-     get medicines(){
-       return this.reactform.get("medicines") as FormArray;
-     }
+    get medicines(){
+      return this.reactform.get("medicines") as FormArray;
+    }
 
      get investigations(){
       return this.reactform.get("investigations") as FormArray;
@@ -192,11 +207,11 @@ export class PrescriptionPadComponent implements OnInit {
 
     medicine: any[] = [];
 
-    fetchMedicines() {
-      this.http.get<any[]>('http://localhost:9090/api/medicines').subscribe((data: any[]) => {
-        this.medicine = data;
-      });
-    }
+    // fetchMedicines() {
+    //   this.http.get<any[]>('http://localhost:9090/api/medicines').subscribe((data: any[]) => {
+    //     this.medicine = data;
+    //   });
+    // }
 
 
 
