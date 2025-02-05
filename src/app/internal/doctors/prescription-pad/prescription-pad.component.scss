@@ -1,113 +1,114 @@
 /* General Styling */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  padding: 20px;
+  background: #f4f4f4;
+  padding: 10px;
+  margin: 0;
 }
 
 .card {
   max-width: 800px;
   margin: auto;
   background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card-title {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 h2 {
   color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
 }
 
 /* Form Styling */
 .form-inline {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 10px;
 }
 
 .form-group {
-  display: flex;
-  flex-direction: column;
   flex: 1;
+  min-width: 120px;
 }
 
 .form-group label {
   font-weight: bold;
-  margin-bottom: 5px;
+  font-size: 0.9rem;
+  margin-bottom: 3px;
 }
 
 input,
 select {
-  padding: 8px;
+  padding: 6px;
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 100%;
+  font-size: 0.9rem;
 }
 
-input:focus, select:focus {
-  outline: none;
+input:focus,
+select:focus {
   border-color: #007bff;
+  outline: none;
 }
 
 /* Tables */
 table {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 5px;
   border-collapse: collapse;
 }
 
 td {
-  padding: 8px;
+  padding: 5px;
 }
 
 input[type="text"] {
   width: 100%;
-  padding: 8px;
+  padding: 6px;
 }
 
 /* Buttons */
-.add-btn,
-.remove-btn,
-.primary-btn {
-  padding: 8px 15px;
+button {
+  padding: 6px 12px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
+  font-size: 0.9rem;
 }
 
 .add-btn {
-  background-color: #000000;
+  background: #000;
   color: white;
 }
 
 .remove-btn {
-  background-color: #dc354600;
-  color: rgb(0, 0, 0);
+  background: none;
+  color: red;
+  font-weight: bold;
 }
 
 .primary-btn {
-  background-color: #007bff;
+  background: #007bff;
   color: white;
   width: 100%;
-  padding: 10px;
-  font-size: 10px;
+  padding: 8px;
 }
 
 /* Button Hover Effects */
 .add-btn:hover {
-  background-color: #218838;
+  background: #333;
 }
 
-
-
 .primary-btn:hover {
-  background-color: #0056b3;
+  background: #0056b3;
 }
 
 /* Responsive Design */
@@ -120,13 +121,18 @@ input[type="text"] {
     width: 100%;
   }
 }
-.flex-container {
-  display: flex;
-  justify-content: space-between; /* Spaces out elements */
-/* Adds space between the sections */
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  min-height: 100px;
+  resize: vertical; /* Allows resizing */
 }
 
-.section {
-  flex: 1; /* Each section takes equal space */
-  min-width: 300px; /* Prevents shrinking too much */
+.form-group h2 {
+  font-size: 1.2rem;
 }
+
