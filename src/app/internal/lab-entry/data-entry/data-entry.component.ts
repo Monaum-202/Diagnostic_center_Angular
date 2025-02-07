@@ -1,50 +1,74 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+
+interface DiagnosticTest {
+  id: number;
+  name: string;
+  code: string;
+  price: number;
+}
 
 @Component({
   selector: 'app-data-entry',
   templateUrl: './data-entry.component.html',
   styleUrls: ['./data-entry.component.scss']
 })
-export class DataEntryComponent {
+export class DataEntryComponent implements OnInit {
+  constructor(private http: HttpClient, private route: ActivatedRoute, private fb: FormBuilder) {}
 
-   constructor(
-       private http: HttpClient,
-      private route: ActivatedRoute
-    ) { }
-  selectedBranch: string = ''; // Currently selected branch
-
-  // Form control for product name input
+  selectedBranch: string = '';
   testNameControl = new FormControl('');
-  selectedTest: string = ''; // Selected test name
-  selectedTests: any[] = []; // List of selected tests
-  tests: any[] = []; // List of tests from API
+  doctorNameControl = new FormControl('');
 
-  filteredTests: any[] = []; // Filtered list for autocomplete suggestions
+  tests: DiagnosticTest[] = [];
+  filteredTests: DiagnosticTest[] = [];
 
+  doctors: any[] = [];
+  filteredDoctors: any[] = [];
 
+  totalAmount: number = 0;
+  discountPercent: number = 0;
+  discountCash: number = 0;
+  payableAmount: number = 0;
+  paidAmount: number = 0;
+  dueAmount: number = 0;
 
+  reactform!: FormGroup;
 
-
-  printOptions = [
-    { name: 'productName', label: 'Product Name', selected: true },
-    { name: 'productPrice', label: 'Product Price', selected: true },
-    { name: 'vat', label: 'VAT', selected: false },
-    { name: 'expiredDate', label: 'Expired Date', selected: false }
-  ];
-
-  // Fetch tests from API on component initialization
   ngOnInit() {
+    this.initializeForm();
     this.fetchTests();
     this.fetchDoctors();
   }
 
+  initializeForm() {
+    this.reactform = this.fb.group({
+      id: new FormControl(null),
+      patientName: new FormControl('', Validators.required),
+      age: new FormControl('', Validators.required),
+      sex: new FormControl('', Validators.required),
+      mobile: new FormControl('', Validators.required),
+      totalAmount: new FormControl(0),
+      discount: new FormControl(0),
+      discount1: new FormControl(0),
+      payableAmount: new FormControl(0),
+      paidAmount: new FormControl(0),
+      dueAmount: new FormControl(0),
+      refBy: new FormControl(null),
+      diagonesticTests: this.fb.array([])
+    });
+  }
+
+  get diagonesticTests(): FormArray {
+    return this.reactform.get('diagonesticTests') as FormArray;
+  }
+
   fetchTests() {
-    this.http.get<any[]>('http://localhost:9090/api/diagnostic').subscribe(
+    this.http.get<DiagnosticTest[]>('http://localhost:9090/api/diagnostic').subscribe(
       (data) => {
-        this.tests = data || []; // Ensure tests is initialized
+        this.tests = data || [];
       },
       (error) => {
         console.error('Error fetching tests:', error);
@@ -53,66 +77,10 @@ export class DataEntryComponent {
     );
   }
 
-  // Filter tests for autocomplete suggestions
-  filterTests() {
-    const input = this.testNameControl.value?.trim().toLowerCase() || '';
-    if (input === '') {
-      this.filteredTests = [];
-    } else {
-      this.filteredTests = this.tests.filter((test) =>
-        test.name.toLowerCase().includes(input)
-      );
-    }
-  }
-
-  // Select a test from suggestions
-  selectTest(test: any) {
-    if (!this.selectedTests.some((t) => t.name === test.name)) {
-      this.selectedTests.push({ ...test});
-    } else {
-      alert('Test is already added.');
-    }
-    this.testNameControl.setValue(''); // Clear input
-    this.filteredTests = []; // Clear suggestions
-  }
-
-  // Remove a test from the list
-  removeTest(test: any) {
-    this.selectedTests = this.selectedTests.filter((t) => t.name !== test.name);
-  }
-
-  // Search for a specific test
-  searchTest() {
-    const searchTerm = this.testNameControl.value?.trim().toLowerCase();
-    if (!searchTerm) {
-      alert('Please enter a test name to search.');
-      return;
-    }
-
-    this.filteredTests = this.tests.filter((test) =>
-      test.name.toLowerCase().includes(searchTerm)
-    );
-
-    if (this.filteredTests.length === 0) {
-      alert('No tests found.');
-    }
-  }
-
-
-
-  doctorNameControl = new FormControl(''); // Form control for doctor name input
-  selectedDoctor: string = ''; // Selected test name
-  selectedDoctors: any[] = []; // List of selected tests
-  doctors: any[] = []; // List of tests from API
-
-  filteredDoctors: any[] = [];
-
-
-
   fetchDoctors() {
     this.http.get<any[]>('http://localhost:9090/api/doctor').subscribe(
       (data) => {
-        this.doctors = data || []; // Ensure doctors list is initialized
+        this.doctors = data || [];
       },
       (error) => {
         console.error('Error fetching doctors:', error);
@@ -120,55 +88,82 @@ export class DataEntryComponent {
       }
     );
   }
-  
-  // Filter doctors for autocomplete suggestions
+
+  filterTests() {
+    const input = this.testNameControl.value?.trim().toLowerCase() || '';
+    this.filteredTests = input ? this.tests.filter(test => test.name.toLowerCase().includes(input)) : [];
+  }
+
+  selectTest(test: DiagnosticTest) {
+    const alreadyAdded = this.diagonesticTests.controls.some(control => control.value.id === test.id);
+
+    if (!alreadyAdded) {
+      this.diagonesticTests.push(
+        this.fb.group({
+          id: test.id,
+          name: test.name,
+          price: test.price
+        })
+      );
+      this.calculateAmounts();
+    } else {
+      alert('Test is already added.');
+    }
+
+    this.testNameControl.setValue('');
+    this.filteredTests = [];
+  }
+
+  removeTest(index: number) {
+    this.diagonesticTests.removeAt(index);
+    this.calculateAmounts();
+  }
+
   filterDoctors() {
     const input = this.doctorNameControl.value?.trim().toLowerCase() || '';
-    if (input === '') {
-      this.filteredDoctors = [];
-    } else {
-      this.filteredDoctors = this.doctors.filter((doctor) =>
-        doctor.name.toLowerCase().includes(input)
+    this.filteredDoctors = input ? this.doctors.filter(doctor => doctor.name.toLowerCase().includes(input)) : [];
+  }
+
+  selectDoctor(doctor: any) {
+    this.reactform.patchValue({ refBy: doctor.id });
+    this.doctorNameControl.setValue(doctor.name);
+    this.filteredDoctors = [];
+  }
+
+  calculateAmounts() {
+    this.totalAmount = this.diagonesticTests.controls.reduce((sum, control) => sum + control.value.price, 0);
+    
+    const discountFromPercent = (this.totalAmount * this.reactform.value.discount) / 100;
+    const totalDiscount = Math.min(discountFromPercent + this.reactform.value.discount1, this.totalAmount);
+    
+    this.payableAmount = this.totalAmount - totalDiscount;
+    this.dueAmount = Math.max(this.payableAmount - this.reactform.value.paidAmount, 0);
+
+    this.reactform.patchValue({
+      totalAmount: this.totalAmount,
+      payableAmount: this.payableAmount,
+      dueAmount: this.dueAmount
+    });
+  }
+
+  submitForm() {
+    if (this.reactform.valid) {
+      console.log('Form submitted:', this.reactform.value);
+      
+      this.http.post('http://localhost:9090/api/MoneyReceipt', this.reactform.value).subscribe(
+        (response) => {
+          console.log('Form submitted successfully', response);
+          alert('Form submitted successfully!');
+          this.reactform.reset();
+          this.diagonesticTests.clear(); // Clear selected tests
+        },
+        (error) => {
+          console.error('Error submitting form:', error);
+          alert('Failed to submit form.');
+        }
       );
+    } else {
+      alert('Please fill out all required fields correctly.');
     }
   }
-  
-  // Select a doctor and set its name in the input box
-  selectDoctor(doctor: any) {
-    this.doctorNameControl.setValue(doctor.name); // Set selected doctor name in input
-    this.filteredDoctors = []; // Clear suggestions
-  }
-  
-
-
-
-
-totalAmount: number = 0;
-discountPercentage: number = 0;
-discountCash: number = 0;
-payableAmount: number = 0;
-paidAmount: number = 0;
-dueAmount: number = 0;
-
-calculateTotal() {
-  this.totalAmount = this.selectedTests.reduce((sum, test) => sum + (test.price || 0), 0);
-  this.calculateDiscount();
-}
-
-calculateDiscount() {
-  let discountFromPercentage = (this.totalAmount * this.discountPercentage) / 100;
-  let totalDiscount = discountFromPercentage + this.discountCash;
-  
-  // Ensure discount does not exceed total amount
-  if (totalDiscount > this.totalAmount) {
-    totalDiscount = this.totalAmount;
-  }
-
-  this.payableAmount = this.totalAmount - totalDiscount;
-  this.calculateDue();
-}
-
-calculateDue() {
-  this.dueAmount = this.payableAmount - this.paidAmount;
-}
 }
