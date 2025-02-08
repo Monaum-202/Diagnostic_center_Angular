@@ -2,15 +2,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LabEntryComponent } from './lab-entry.component';
 import { DataEntryComponent } from './data-entry/data-entry.component';
+import { SalesReportComponent } from './sales-report/sales-report.component';
+import { PatientListComponent } from './patient-list/patient-list.component';
 
 const routes: Routes = [
 
      { path: '', redirectTo: 'LabEntry_dashboard', pathMatch: 'full' },
       {path:"LabEntry_dashboard", component: LabEntryComponent},
     {path:"Data_Entry", component:DataEntryComponent},
-  //   {path:"appointment", component:AppointmentComponent},
+    {path:"sales_report", component:SalesReportComponent},
   //   {path:"prescription/:pId", component:PrescriptionCreateComponent},
-  //   {path:"prescription", component:PrescriptionCreateComponent},
+    {path:"patient_list", component:PatientListComponent},
   //   {path:"prescription_pad", component:PrescriptionPadComponent},
   //   {path:"note", component:NotepadComponent},
   //   {path:"to_do", component:ToDoListComponent},
