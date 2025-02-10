@@ -1,28 +1,18 @@
 <div class="container mt-4">
     <h4>Sales Summary</h4>
     <div class="card p-3">
-        <form [formGroup]="balanceSheetForm" class="row g-3">
+        <form class="row g-3">
             <!-- From Date -->
-            <div class="col-md-3">
-                <label for="fromDate" class="form-label">From Date *</label>
-                <input type="date" class="form-control" id="fromDate" formControlName="fromDate">
+            <div>
+                <label for="fromDate">From Date:</label>
+                <input type="datetime-local" id="fromDate" [(ngModel)]="fromDate" name="fromDate">
+            </div>
+            
+            <div>
+                <label for="toDate">To Date:</label>
+                <input type="datetime-local" id="toDate" [(ngModel)]="toDate" name="toDate">
             </div>
 
-            <!-- To Date -->
-            <div class="col-md-3">
-                <label for="toDate" class="form-label">To Date *</label>
-                <input type="date" class="form-control" id="toDate" formControlName="toDate">
-            </div>
-
-            <!-- Business Unit -->
-            <!-- <div class="col-md-3">
-                <label for="businessUnit" class="form-label">Business Unit</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" id="businessUnit" formControlName="businessUnit">
-                    <button type="button" class="btn btn-outline-secondary" (click)="searchBusinessUnit()">🔍</button>
-                    <button type="button" class="btn btn-outline-secondary" (click)="resetBusinessUnit()">↺</button>
-                </div>
-            </div> -->
 
             <!-- Clear Button -->
             <div class="col-md-3 d-flex align-items-end">
@@ -36,6 +26,8 @@
         <select class="form-select w-auto me-2" [(ngModel)]="selectedFormat">
             <option *ngFor="let format of exportFormats" [value]="format">{{ format }}</option>
         </select>
-        <button class="btn btn-primary" (click)="generateReport()">🔍 View</button>
+        <a [href]="'http://localhost:9090/download?format=' + format + '&fromDate=' + fromDate + '&toDate=' + toDate" target="_blank">
+            <button type="button" class="btn-submit">Print</button>
+        </a>
     </div>
 </div>
