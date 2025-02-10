@@ -5,6 +5,7 @@ import { DoctorsComponent } from './doctors/doctors.component';
 import { MediDepartmentComponent } from './medi-department/medi-department.component';
 import { DoctorRegistrationComponent } from './doctor-registration/doctor-registration.component';
 import { RoleSetComponent } from './role-set/role-set.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 
 
@@ -13,6 +14,8 @@ const routes: Routes = [
     { path: '', redirectTo: 'doctor_reg', pathMatch: 'full' },
       {path:"admin_dashboard", component:DashboardComponent},
     {path:"doctor_reg", component:DoctorRegistrationComponent},
+    
+    {path:"user_list", component:UserListComponent},
   //   {path:"appointment", component:AppointmentComponent},
   //   {path:"prescription/:pId", component:PrescriptionCreateComponent},
   //   {path:"prescription", component:PrescriptionCreateComponent},

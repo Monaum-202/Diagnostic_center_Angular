@@ -35,7 +35,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of usersList">
+            <tr *ngFor="let user of userList">
                 <td>{{ user.userName }}</td>
                 <td>{{ user.userFirstName }}</td>
                 <td>{{ user.userLastName }}</td>
@@ -48,12 +48,12 @@
               <td style="text-align: center;">
                 <a [routerLink]="['/admin/role_set/', user.userName]">
                   <button class="btn1">
-                    <img src="assets/pen.png" alt="Edit" class="icon">
+                    <!-- <img src="assets/pen.png" alt="Edit" class="icon"> -->edit
                   </button>
                 </a>
                 |
                 <button class="btn1" (click)="deletecategory(user.userName)">
-                  <img src="/assets/bin.png" alt="Delete" class="icon">
+                  <!-- <img src="/assets/bin.png" alt="Delete" class="icon"> -->
                 </button>
               </td>
             </tr>

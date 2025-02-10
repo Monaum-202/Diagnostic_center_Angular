@@ -7,7 +7,7 @@ import { PatientListComponent } from './patient-list/patient-list.component';
 
 const routes: Routes = [
 
-     { path: '', redirectTo: 'LabEntry_dashboard', pathMatch: 'full' },
+     { path: '', redirectTo: 'Data_Entry', pathMatch: 'full' },
       {path:"LabEntry_dashboard", component: LabEntryComponent},
     {path:"Data_Entry", component:DataEntryComponent},
     {path:"sales_report", component:SalesReportComponent},

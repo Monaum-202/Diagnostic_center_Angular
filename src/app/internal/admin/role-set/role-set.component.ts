@@ -21,7 +21,7 @@ export class RoleSetComponent implements OnInit {
 
   userName!: string;
   userList: any;
-  availableRoles = ['ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_USER'];
+  availableRoles = ['ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_LAB_ENTRY', 'ROLE_USER'];
 
   // Initialize the form group
   signupForm: FormGroup = new FormGroup({

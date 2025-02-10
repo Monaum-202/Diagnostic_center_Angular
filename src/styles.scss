@@ -37,3 +37,43 @@ $hospital-theme: mat.define-light-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/* Light Mode (Default) */
+:root {
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --card-bg: #f8f9fa;
+  --btn-bg: #007bff;
+  --btn-text: #ffffff;
+}
+
+/* Dark Mode */
+.dark-mode {
+  --background-color: #121212;
+  --text-color: #ffffff;
+  --card-bg: #1e1e1e;
+  --btn-bg: #ff9800;
+  --btn-text: #000000;
+}
+
+/* Apply Variables */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.card {
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+button {
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}

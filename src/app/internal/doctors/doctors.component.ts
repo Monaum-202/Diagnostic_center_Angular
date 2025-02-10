@@ -1,6 +1,7 @@
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { UserServiceService } from './../../service/userService/user-service.service';
 import { Component, OnInit } from '@angular/core';
+import { ThemeService } from 'src/app/service/theme/theme.service';
 
 @Component({
   selector: 'app-doctors',
@@ -9,9 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DoctorsComponent implements OnInit {
 
-constructor(private userService: UserServiceService,
-) { }
+constructor(private userService: UserServiceService, private themeService: ThemeService
+) {  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  this.isDarkMode = localStorage.getItem('theme')
+    ? localStorage.getItem('theme') === 'dark'
+    : prefersDark;
 
+  this.updateTheme(); }
+  private isDarkMode = false;
+
+
+  private updateTheme() {
+    if (this.isDarkMode) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  }
+toggleTheme() {
+  this.themeService.toggleTheme();
+}
 userlist:any[]= [];
 userName: string = '';
 

@@ -16,7 +16,16 @@ interface DiagnosticTest {
   styleUrls: ['./data-entry.component.scss']
 })
 export class DataEntryComponent implements OnInit {
-  constructor(private http: HttpClient, private route: ActivatedRoute, private fb: FormBuilder) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute, private fb: FormBuilder) {
+    const user = sessionStorage.getItem("auth-user");
+    if (user) {
+      this.userName = JSON.parse(user).user.userName; // Extract userName
+    } else {
+      this.userName = "Guest"; // Default value if no user is found
+    }
+    console.log("Retrieved userName:", this.userName);
+      console.log(this.userName);
+  }
 
   selectedBranch: string = '';
   testNameControl = new FormControl('');
@@ -50,6 +59,7 @@ export class DataEntryComponent implements OnInit {
       age: new FormControl('', Validators.required),
       sex: new FormControl('', Validators.required),
       mobile: new FormControl('', Validators.required),
+      createdBy: new FormControl(this.userName),
       totalAmount: new FormControl(0),
       discount: new FormControl(0),
       discount1: new FormControl(0),
@@ -166,4 +176,10 @@ export class DataEntryComponent implements OnInit {
       alert('Please fill out all required fields correctly.');
     }
   }
+
+
+  userlist:any[]= [];
+  userName: string = '';
+  
+
 }

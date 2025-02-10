@@ -2,13 +2,15 @@
     <!-- Sidebar -->
     <div class="sidebar" style="background-color: black;">
         
-        <br><h4>Lab Entry Dashboard</h4>
+        <br><h3>&nbsp;&nbsp;&nbsp;&nbsp;Lab Entry Dashboard</h3>
         <br>
         <a routerLink="doctor_dashboard"><i class="fas fa-home"></i> &nbsp; Dashboard</a>
-        <a routerLink="../Data_Entry"><i class="fa-solid fa-hospital-user"></i> &nbsp; New Entry </a>
-        <a routerLink="to_do"><i class="fa-solid fa-list"></i> &nbsp; Entries </a>
+        <a routerLink="Data_Entry"><i class="fa-solid fa-hospital-user"></i> &nbsp; New Entry </a>
+        <a routerLink="patient_list"><i class="fa-solid fa-list"></i> &nbsp; Entries </a>
+        <a routerLink="sales_report"><i class="fa-solid fa-list"></i> &nbsp; Reports </a>
         <a routerLink="note"><i class="fas fa-cog"></i> &nbsp; Settings</a>
-        <a routerLink="note"><i class="fas fa-sign-out-alt"></i> &nbsp; Logout</a>
+        
+        <a (click)="logout()" routerLink="../login"><i class="fas fa-sign-out-alt"></i> &nbsp; Logout</a>
         
     </div>
 
@@ -16,7 +18,7 @@
     <div class="main-content w-100">
         <!-- Header -->
         <div class="header">
-            <h5>Welcome, Dr. dhg</h5>
+            <h2>Welcome, {{userName}}</h2>
             <div class="d-flex align-items-center">
                 <span class="me-3">{{date}} | {{time}}</span>
             </div>
@@ -24,6 +26,7 @@
 
         <!-- Placeholder for Router Content -->
         <div>
+            <br>
             <router-outlet></router-outlet>
         </div>
     </div>

@@ -20,4 +20,29 @@ export class LabEntryComponent implements OnInit {
 
   time = ""
   date=""
+
+
+  logout() {
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.href = "";
+
+  }
+
+
+  userlist:any[]= [];
+userName: string = '';
+
+  constructor() {
+    const user = sessionStorage.getItem("auth-user");
+  if (user) {
+    this.userName = JSON.parse(user).user.userName; // Extract userName
+  } else {
+    this.userName = "Guest"; // Default value if no user is found
+  }
+  console.log("Retrieved userName:", this.userName);
+    console.log(this.userName);
+  }
+
+  
 }

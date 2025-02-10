@@ -66,7 +66,11 @@ export class LoginComponent {
           } else if (role === 'ROLE_MODERATOR') {
             console.log('-------------------', role);
             this.router.navigate(['/doctor']);
-          } else {
+          } else if (role === 'ROLE_LAB_ENTRY') {
+            console.log('-------------------', role);
+            this.router.navigate(['/lab_entry']);
+          }
+          else {
             this.router.navigate(['/user']);
           }
         } else {

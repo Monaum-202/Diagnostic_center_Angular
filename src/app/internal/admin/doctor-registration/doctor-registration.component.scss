@@ -1,74 +1,106 @@
-.container {
-    width: 80%;
-    margin: auto;
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+}
+
+.d-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Main Container */
+.main-content {
+  width: 100%;
+  max-width: 1200px;
+  background: #fff;
+}
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.btn:hover {
+  background: #0056b3;
+}
+
+.date-range-input {
+  padding: 5px;
+  font-size: 12px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+/* Table Styles */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  font-size: 12px;
+}
+
+.data-table th, 
+.data-table td {
+  padding: 5px;
+  text-align: left;
+  border: 1px solid #ddd; /* Vertical and horizontal borders */
+}
+
+.data-table th {
+  background: #007bff;
+  color: white;
+  font-weight: normal;
+}
+
+.data-table tbody tr:hover {
+  background: #f1f1f1;
+}
+
+/* Action Buttons */
+.btn1 {
+  color: #000;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 3px;
+}
+
+.icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background: white;
+
+  .data-table th, .data-table td {
+    font-size: 10px;
+    padding: 3px;
   }
-  
-  thead {
-    background: #007bff;
-    color: white;
-  }
-  
-  thead th {
-    padding: 10px;
-    text-align: left;
-  }
-  
-  tbody tr:nth-child(even) {
-    background: #f2f2f2;
-  }
-  
-  td, th {
-    padding: 10px;
-    border: 1px solid #ddd;
-  }
-  
-  select, input[type="text"] {
-    width: 100%;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  button {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  button[type="button"] {
-    background: #ff4d4d;
-    color: white;
-  }
-  
-  button[type="button"]:hover {
-    background: #cc0000;
-  }
-  
-  button:last-of-type {
-    background: #28a745;
-    color: white;
-    margin-top: 10px;
-  }
-  
-  button:last-of-type:hover {
-    background: #000000;
-  }
-  
-  button.remove-btn {
-    padding: 4px 6px;
-    font-size: 12px;
-    background: #00000000
-  }
+}

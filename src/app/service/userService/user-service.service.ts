@@ -18,6 +18,10 @@ export class UserServiceService {
     return this.httpClient.get(this.apiUrl)
   }
 
+  getAllDoctors() {
+    return this.httpClient.get(this.apiUrl + "/moderators")
+  }
+
   getByuserName(userName: any) {
     return this.httpClient.get(this.apiUrl + "/" + userName)
   }

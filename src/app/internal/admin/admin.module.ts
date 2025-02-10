@@ -12,6 +12,7 @@ import { MediDepartmentComponent } from './medi-department/medi-department.compo
 import { DoctorRegistrationComponent } from './doctor-registration/doctor-registration.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { RoleSetComponent } from './role-set/role-set.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { RoleSetComponent } from './role-set/role-set.component';
     MediDepartmentComponent,
     DoctorRegistrationComponent,
     RegistrationComponent,
-    RoleSetComponent
+    RoleSetComponent,
+    UserListComponent
   ],
   imports: [
     CommonModule,
