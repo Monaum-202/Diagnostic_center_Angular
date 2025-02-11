@@ -160,26 +160,65 @@ export class DataEntryComponent implements OnInit {
     if (this.reactform.valid) {
       console.log('Form submitted:', this.reactform.value);
       
-      this.http.post('http://localhost:9090/api/MoneyReceipt', this.reactform.value).subscribe(
-        (response) => {
-          console.log('Form submitted successfully', response);
-          alert('Form submitted successfully!');
-          this.reactform.reset();
-          this.diagonesticTests.clear(); // Clear selected tests
-        },
-        (error) => {
+      this.http.post<any>('http://localhost:9090/api/MoneyReceipt', this.reactform.value)
+        .subscribe(response => {
+          if (response && response.id) {
+            console.log('Form submitted successfully', response);
+            // alert('Form submitted successfully!');
+            
+            // Download receipt first before resetting the form
+            this.downloadReceipt(response.id);
+            
+            // Reset form after a short delay to ensure the download starts
+            setTimeout(() => {
+              this.reactform.reset();
+              this.diagonesticTests.clear(); // Clear selected tests
+            }, 1000); // 1-second delay
+          } else {
+            alert('Form submitted, but no receipt ID returned.');
+          }
+        }, error => {
           console.error('Error submitting form:', error);
           alert('Failed to submit form.');
-        }
-      );
+        });
     } else {
       alert('Please fill out all required fields correctly.');
     }
   }
+  
+  downloadReceipt(id: number) {
+    const format = 'pdf';
+    this.http.get(`http://localhost:9090/receipt/download?format=${format}&id=${id}`, { responseType: 'blob' })
+      .subscribe(response => {
+        const blob = new Blob([response], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+  
+        // Open PDF in an iframe and trigger print
+        const printWindow = window.open('', '_blank');
+        if (printWindow) {
+          printWindow.document.write(`
+            <iframe src="${url}" style="width:100%;height:100%;" onload="this.contentWindow.print();"></iframe>
+          `);
+          printWindow.document.close();
+        } else {
+          alert('Popup blocked! Please allow popups for this site.');
+        }
+  
+        // Optional: Revoke the object URL after some time
+        setTimeout(() => window.URL.revokeObjectURL(url), 5000);
+      }, error => {
+        console.error('Error generating report:', error);
+        alert('Failed to generate receipt.');
+      });
+  }
+  
+  
 
 
   userlist:any[]= [];
   userName: string = '';
   
-
+  format: string = 'pdf';  // Default format (can be changed by user)
+  id: any = '';   // Start date in ISO 8601 format
+  toDate: string = ''; // End date (ISO 8601 format)
 }

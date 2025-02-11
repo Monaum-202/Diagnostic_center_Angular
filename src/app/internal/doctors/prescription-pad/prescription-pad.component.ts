@@ -203,23 +203,61 @@ export class PrescriptionPadComponent implements OnInit {
     if (this.reactform.valid) {
       const formData = this.reactform.value;
       console.log('Form data:', formData);
-
+  
       this.prescriptionService.savePrescription(formData).subscribe({
         next: (response) => {
           alert('Prescription saved successfully!');
           console.log(response);
+          
+          if (response?.id) {
+            this.downloadReceipt(response.id);  // Call download function
+          }
+  
           this.reactform.reset(); // Reset form after successful submission
         },
         error: (error) => {
-          alert('Error saving prescription.');
-          console.error(error);
+          console.error('Error saving prescription:', error);
+          alert('Failed to save prescription.');
         },
       });
     } else {
       alert('Please fill all required fields.');
     }
   }
-
+  downloadReceipt(id: number) {
+    const format = 'pdf';
+    const receiptUrl = `http://localhost:9090/prescription/download?format=${format}&id=${id}`;
+  
+    this.http.get(receiptUrl, { responseType: 'blob' }).subscribe({
+      next: (response) => {
+        const blob = new Blob([response], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+  
+        // Create a link element to open the PDF in a new tab
+        const a = document.createElement('a');
+        a.href = url;
+        a.target = '_blank';  // Open in new tab
+        a.click();
+  
+        // Optional: Revoke the URL after a delay
+        setTimeout(() => window.URL.revokeObjectURL(url), 5000);
+  
+        // Optionally, you can try triggering print in the new tab (if possible)
+        setTimeout(() => {
+          const printWindow = window.open(url, '_blank');
+          if (printWindow) {
+            printWindow.focus();
+            printWindow.print();
+          }
+        }, 500);
+      },
+      error: (error) => {
+        console.error('Error generating report:', error);
+        alert('Failed to generate receipt.');
+      }
+    });
+  }
+  
   //     medicineControl = new FormControl(''); // Form control for medicine name input
   // selectedMedicine: string = ''; // Selected medicine name
   // selectedMedicines: any[] = []; // List of selected medicines
