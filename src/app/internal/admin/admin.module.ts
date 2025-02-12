@@ -14,6 +14,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { RoleSetComponent } from './role-set/role-set.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { ReportsComponent } from './reports/reports.component';
+import { DepartmentComponent } from './department/department.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { ReportsComponent } from './reports/reports.component';
     RegistrationComponent,
     RoleSetComponent,
     UserListComponent,
-    ReportsComponent
+    ReportsComponent,
+    DepartmentComponent
   ],
   imports: [
     CommonModule,

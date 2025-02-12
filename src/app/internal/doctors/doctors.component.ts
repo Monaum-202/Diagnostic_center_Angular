@@ -2,6 +2,7 @@ import { AuthService } from 'src/app/service/auth/auth.service';
 import { UserServiceService } from './../../service/userService/user-service.service';
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from 'src/app/service/theme/theme.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-doctors',
@@ -10,7 +11,7 @@ import { ThemeService } from 'src/app/service/theme/theme.service';
 })
 export class DoctorsComponent implements OnInit {
 
-constructor(private userService: UserServiceService, private themeService: ThemeService
+constructor(private userService: UserServiceService, private themeService: ThemeService,private router: Router, private route: ActivatedRoute,
 ) {  
   // const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   // this.isDarkMode = localStorage.getItem('theme')
@@ -74,7 +75,7 @@ userName: string = '';
   logout() {
     localStorage.clear();
     sessionStorage.clear();
-    window.location.href = "";
+    this.router.navigate(['/login']);
 
   }
                                    

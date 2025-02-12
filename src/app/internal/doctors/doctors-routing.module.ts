@@ -9,6 +9,7 @@ import { ToDoListComponent } from './to-do-list/to-do-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DepartmentComponent } from './department/department.component';
 import { PrescriptionComponent } from './prescription/prescription.component';
+import { PrescribedComponent } from './prescribed/prescribed.component';
 
 
 const routes: Routes = [
@@ -21,7 +22,8 @@ const routes: Routes = [
     {path:"note", component:NotepadComponent},
     {path:"to_do", component:ToDoListComponent},
     {path:"doctor_dashboard", component:DashboardComponent},
-    {path:"pres", component:PrescriptionComponent}
+    {path:"pres", component:PrescriptionComponent},
+    {path:"prescribed", component:PrescribedComponent}
     
     
     

@@ -7,6 +7,7 @@ import { DoctorRegistrationComponent } from './doctor-registration/doctor-regist
 import { RoleSetComponent } from './role-set/role-set.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { ReportsComponent } from './reports/reports.component';
+import { DepartmentComponent } from './department/department.component';
 
 
 
@@ -19,7 +20,7 @@ const routes: Routes = [
     {path:"user_list", component:UserListComponent},
     {path:"reports", component:ReportsComponent},
   //   {path:"prescription/:pId", component:PrescriptionCreateComponent},
-  //   {path:"prescription", component:PrescriptionCreateComponent},
+    {path:"department", component:DepartmentComponent},
   //   {path:"prescription_pad", component:PrescriptionPadComponent},
   //   {path:"note", component:NotepadComponent},
   //   {path:"to_do", component:ToDoListComponent},

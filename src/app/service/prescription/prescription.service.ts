@@ -9,7 +9,7 @@ export class PrescriptionService {
 
   constructor(private httpClient: HttpClient) { }
   
-  private apiUrl = "http://localhost:3000/prescription";
+  private apiUrl = "http://localhost:9090/api/prescriptions";
   
   addData(user: any) {
     return this.httpClient.post(this.apiUrl, user)

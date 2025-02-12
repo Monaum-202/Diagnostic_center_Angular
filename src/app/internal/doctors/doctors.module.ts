@@ -17,6 +17,7 @@ import { PrescriptionComponent } from './prescription/prescription.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { PrescribedComponent } from './prescribed/prescribed.component';
 
 
 
@@ -31,7 +32,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     ToDoListComponent,
     DashboardComponent,
     DepartmentComponent,
-    PrescriptionComponent
+    PrescriptionComponent,
+    PrescribedComponent
 
   ],
   imports: [

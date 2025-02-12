@@ -7,7 +7,7 @@ import {
   Validators,
   FormBuilder,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PrescriptionService } from 'src/app/service/prescription/prescription.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class PrescriptionPadComponent implements OnInit {
   constructor(
     private prescriptionService: PrescriptionService,
     private http: HttpClient,
-    private route: ActivatedRoute,
+    private router: Router, private route: ActivatedRoute,
     private fb: FormBuilder
   ) { }
 
@@ -214,6 +214,8 @@ export class PrescriptionPadComponent implements OnInit {
           }
   
           this.reactform.reset(); // Reset form after successful submission
+          this.router.navigate(['/doctor/prescribed']);
+
         },
         error: (error) => {
           console.error('Error saving prescription:', error);
