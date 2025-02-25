@@ -60,7 +60,7 @@ export class RoleSetComponent implements OnInit {
     this.addData(updatedData).subscribe(
       (val: any) => {
         console.log('User updated successfully');
-        this.router.navigateByUrl('admin/doctor_reg');
+        this.router.navigateByUrl('admin/user_list');
       },
       (error) => {
         console.error('Error updating user:', error);

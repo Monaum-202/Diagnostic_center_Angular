@@ -13,7 +13,7 @@ import { DepartmentComponent } from './department/department.component';
 
 const routes: Routes = [
 
-    { path: '', redirectTo: 'doctor_reg', pathMatch: 'full' },
+    { path: '', redirectTo: 'reports', pathMatch: 'full' },
       {path:"admin_dashboard", component:DashboardComponent},
     {path:"doctor_reg", component:DoctorRegistrationComponent},
     

@@ -19,21 +19,23 @@ export class DashboardComponent {
     ) { }
 
   patientList: any[] = [];
-
   ngOnInit(): void {
     const storedUser = sessionStorage.getItem("auth-user");
 
     if (storedUser) {
-      const user = JSON.parse(storedUser); // Parse JSON string into object
+      const user = JSON.parse(storedUser);
       if (user?.user.userName) {
-
         this.appointmentService.getAll(user?.user.userName).subscribe((val: any) => {
-          this.patientList = val
-        })
+          this.patientList = val;
+        });
       }
     }
   }
 
+  // Getter to return the total count of patients
+  get totalPatients(): number {
+    return this.patientList.length;
+  }
 
 
 

@@ -1,58 +1,27 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
+input {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
 
-  header {
-    background-color: #000000;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    font-size: 24px;
-  }
+button {
+  margin: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
 
-  .notepad-container {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    padding: 20px;
-  }
+.save-btn {
+  background-color: green;
+  color: white;
+}
 
-  textarea {
-    flex-grow: 1;
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 16px;
-    resize: none;
-  }
+.clear-btn {
+  background-color: red;
+  color: white;
+}
 
-  .buttons {
-    margin-top: 10px;
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-  }
-
-  button {
-    padding: 10px 15px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  button.save {
-    background-color: #4e584f;
-    color: white;
-  }
-
-  button.clear {
-    background-color: #eb675d;
-    color: white;
-  }
+.delete-btn {
+  background-color: darkred;
+  color: white;
+  margin-left: 10px;
+}

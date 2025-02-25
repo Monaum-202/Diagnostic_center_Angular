@@ -13,7 +13,7 @@
         <a routerLink="reports"><i class="fa-solid fa-list"></i> &nbsp; Reports</a>
         <a routerLink="doctor_reg"><i class="fa-solid fa-clipboard"></i> &nbsp;  Set Role</a>
         <a routerLink="note"><i class="fas fa-cog"></i> &nbsp; Settings</a>
-        <a routerLink="note"><i class="fas fa-sign-out-alt"></i> &nbsp; Logout</a>
+        <a (click)="logout()" routerLink="../login"><i class="fas fa-sign-out-alt"></i> &nbsp; Logout</a>
         
     </div>
 
@@ -21,7 +21,7 @@
     <div class="main-content w-100">
         <!-- Header -->
         <div class="header">
-            <h5>Welcome, Dr. Monaum</h5>
+          <h1>Welcome, {{userName}}</h1>
             <div class="d-flex align-items-center">
                 <span class="me-3">{{date}} | {{time}}</span>
             </div>
@@ -30,6 +30,7 @@
         <!-- Placeholder for Router Content -->
         <div>
             <router-outlet></router-outlet>
+
         </div>
     </div>
 </div>

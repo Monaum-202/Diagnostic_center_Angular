@@ -6,37 +6,46 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./notepad.component.scss']
 })
 export class NotepadComponent implements OnInit {
-  @ViewChild('notepad', { static: false }) notepad!: ElementRef;
-  noteContent: string = '';
+  notes: string[] = []; // Array to store notes
+  noteText: string = ''; // Model for the input field
+
+  constructor() {}
 
   ngOnInit(): void {
-    // Load saved note from localStorage on component initialization
-    const savedNote = localStorage.getItem('note');
-    if (savedNote) {
-      this.noteContent = savedNote;
-    }
+    this.loadNotes(); // Load notes from local storage when the component initializes
   }
 
-  // Save note to localStorage
+  // Save note to the list and local storage
   saveNote(): void {
-    localStorage.setItem('note', this.noteContent);
-    alert('Note saved successfully!');
-  }
-
-  // Clear the textarea and localStorage
-  clearNote(): void {
-    const confirmClear = confirm('Are you sure you want to clear the note? This action cannot be undone.');
-    if (confirmClear) {
-      this.noteContent = ''; // Clear the textarea content
-      localStorage.removeItem('note'); // Remove the note from localStorage
-      alert('Note cleared!');
+    if (this.noteText.trim()) {
+      this.notes.push(this.noteText);
+      this.noteText = '';
+      this.saveToLocalStorage();
     }
   }
 
+  // Delete a specific note
+  deleteNote(index: number): void {
+    this.notes.splice(index, 1);
+    this.saveToLocalStorage();
+  }
 
-  diagnosisList: any[] = [];
-  addDiagnosis(event: any) {
-    const selectedValue = event.target.value;
-    this.diagnosisList.push(selectedValue);
+  // Clear all notes
+  clearAllNotes(): void {
+    this.notes = [];
+    this.saveToLocalStorage();
+  }
+
+  // Save to local storage to persist data
+  private saveToLocalStorage(): void {
+    localStorage.setItem('notes', JSON.stringify(this.notes));
+  }
+
+  // Load notes from local storage
+  private loadNotes(): void {
+    const savedNotes = localStorage.getItem('notes');
+    if (savedNotes) {
+      this.notes = JSON.parse(savedNotes);
+    }
   }
 }
